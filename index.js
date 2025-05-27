@@ -19,12 +19,14 @@ const systemPrompt = `You are a vehicle information assistant. Based on the vehi
 1. Electric (True/False)  
 2. Hybrid (True/False)  
 3. Has an Automatic Braking System (AEB)/ Emergency braking system (EBS) or not (True/False)  
+4. Has an Automatic Emergency Braking System (ABS) (True/False)
 
 Return your answer in the format:
 {
   "IsElectric": true/false,
   "IsHybrid": true/false,
-  "HasAutomaticBrakingSystem": true/false
+  "HasAutomaticBrakingSystem": true/false,
+  "HasAutomaticEmergencyBrakingSystem": true/false
 }`;
 
 // Initialize CSV writer
@@ -38,6 +40,7 @@ const csvWriter = createObjectCsvWriter({
     { id: "IsElectric", title: "IsElectric" },
     { id: "IsHybrid", title: "IsHybrid" },
     { id: "HasAutomaticBrakingSystem", title: "HasAutomaticBrakingSystem" },
+    { id: "HasAutomaticEmergencyBrakingSystem", title: "HasAutomaticEmergencyBrakingSystem" },
   ],
   append: fs.existsSync(outputFilePath),
 });
@@ -107,6 +110,7 @@ async function processRow(row) {
         IsElectric: "Unknown",
         IsHybrid: "Unknown",
         HasAutomaticBrakingSystem: "Unknown",
+        HasAutomaticEmergencyBrakingSystem: "Unknown",
       };
     }
 
@@ -132,6 +136,7 @@ async function processRow(row) {
       IsElectric: "Error",
       IsHybrid: "Error",
       HasAutomaticBrakingSystem: "Error",
+      HasAutomaticEmergencyBrakingSystem: "Error",
     };
 
     await csvWriter.writeRecords([errorRow]);
