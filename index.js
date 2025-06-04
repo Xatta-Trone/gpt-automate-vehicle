@@ -91,7 +91,7 @@ async function processRow(row) {
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo-0125",
+      model: "gpt-3.5-turbo",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: prompt },
@@ -143,7 +143,7 @@ async function processRow(row) {
     processed.add(key);
   }
 
-  await sleep(101); // 500 RPM limit (~100ms/request)
+  await sleep(500); // 500 RPM limit (~100ms/request)
 }
 
 // Main execution flow
